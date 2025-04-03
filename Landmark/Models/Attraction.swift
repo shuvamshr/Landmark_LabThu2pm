@@ -12,4 +12,7 @@ struct Attraction: Identifiable {
     var name: String
     var address: String
     var image: String = "default"
+    
+    var xCord: Double = 0.0
+    var yCord: Double = 0.0
 }

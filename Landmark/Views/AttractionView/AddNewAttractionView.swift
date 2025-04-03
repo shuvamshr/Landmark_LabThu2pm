@@ -9,9 +9,7 @@ import SwiftUI
 
 struct AddNewAttractionView: View {
     
-    // @Binding var attractions: [Attraction]
-    
-    @ObservedObject var viewModel: AttractionViewModel
+    @EnvironmentObject private var viewModel: AttractionViewModel
     
     @State var name = ""
     @State var address = ""

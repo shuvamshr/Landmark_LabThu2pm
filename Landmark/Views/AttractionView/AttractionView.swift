@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AttractionView: View {
     
-    @ObservedObject var viewModel: AttractionViewModel
+    @EnvironmentObject private var viewModel: AttractionViewModel
     
     @State private var isNewAttractionSheetShowing: Bool = false
     
@@ -35,7 +35,7 @@ struct AttractionView: View {
                 }
             }
             .sheet(isPresented: $isNewAttractionSheetShowing) {
-                AddNewAttractionView(viewModel: viewModel)
+                AddNewAttractionView()
             }
         }
     }

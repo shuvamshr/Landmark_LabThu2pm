@@ -9,15 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject private var viewModel = AttractionViewModel()
+    private var viewModel = AttractionViewModel()
     
     var body: some View {
         TabView {
-            AttractionView(viewModel: viewModel)
+            AttractionView()
                 .tabItem {
                     Label("Attractions", systemImage: "star.fill")
                 }
-            MapView(viewModel: viewModel)
+            MapView()
                 .tabItem {
                     Label("Map", systemImage: "mappin.slash.circle.fill")
                 }
@@ -26,6 +26,7 @@ struct ContentView: View {
                     Label("Settings", systemImage: "gearshape.fill")
                 }
         }
+        .environmentObject(viewModel)
     }
 }
 
