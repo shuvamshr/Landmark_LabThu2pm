@@ -22,10 +22,28 @@ struct AttractionView: View {
                     } label: {
                         AttractionListItem(attraction: attraction)
                     }
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button {
+                            viewModel.addVisit()
+                        } label: {
+                            Label("Add Visit", systemImage: "plus.square")
+                        }
+                        .tint(Color.accentColor)
+                    }
+                    
                 }
             }
             .navigationTitle("Attractions")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack {
+                        Image(systemName: "mappin.circle")
+                        Text("\(viewModel.visitCount) Visits")
+                    }
+                    .bold()
+                    .foregroundStyle(Color.accentColor)
+                }
+                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         isNewAttractionSheetShowing.toggle()
