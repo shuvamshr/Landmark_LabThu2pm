@@ -9,9 +9,9 @@ import SwiftUI
 
 class AttractionViewModel: ObservableObject {
     @Published var attractions: [Attraction] = [
-        Attraction(name: "Opera House", address: "Circular Quay", image: "operahouse", xCord: 40, yCord: 90),
-        Attraction(name: "Darling Harbour", address: "Haymarket", image: "darlingharbour", xCord: -120, yCord: -30),
-        Attraction(name: "Harbour Bridge", address: "Sydney", image: "harbourbridge", xCord: 90, yCord: -20),
+        Attraction(name: "Opera House", address: "Circular Quay", image: "operahouse", latitude: -33.8568, longitude: 151.2153),
+        Attraction(name: "Darling Harbour", address: "Haymarket", image: "darlingharbour", latitude: -33.8748, longitude: 151.1987),
+        Attraction(name: "Harbour Bridge", address: "Sydney", image: "harbourbridge", latitude: -33.8523, longitude: 151.2108),
     ]
     
 //    @Published var visitCount: Int = UserDefaults.standard.integer(forKey: "VisitCount")

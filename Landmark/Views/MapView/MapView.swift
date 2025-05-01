@@ -6,24 +6,62 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct MapView: View {
     
     @EnvironmentObject private var viewModel: AttractionViewModel
     
+    @State private var temp = 0.0
+    
     var body: some View {
         NavigationStack {
-            ZStack {
+            Map {
                 ForEach(viewModel.attractions) { attraction in
-                    Image(systemName: "mappin.and.ellipse")
-                        .font(.largeTitle)
-                        .foregroundStyle(.red)
-                        .offset(CGSize(width: attraction.xCord, height: attraction.yCord))
+                    
+                    Annotation("Hi", coordinate: CLLocationCoordinate2D(latitude: attraction.latitude, longitude: attraction.longitude)) {
+                        Circle()
+                            .frame(width: 40)
+                            .onTapGesture {
+                                Task {
+                                    await getWeather(lat: attraction.latitude, lon: attraction.longitude)
+                                }
+                            }
+                    }
                 }
+                
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.blue.opacity(0.2))
-            .navigationTitle("Map")
+                .navigationTitle("Temperature: \(temp)")
+                .navigationBarTitleDisplayMode(.inline)
         }
+    }
+    
+    private func getWeather(lat: Double, lon: Double) async {
+        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&appid=9f3fa86507527f4be46c0d5ffdb71490") else {
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+                return
+            }
+
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+
+            do {
+                let weather = try JSONDecoder().decode(WeatherResponse.self, from: data)
+                print("Temp: \(weather.main.temp)")
+                DispatchQueue.main.async {
+                    temp = weather.main.temp
+                }
+            } catch {
+                print("Decoding error: \(error)")
+            }
+        }
+        task.resume()
     }
 }

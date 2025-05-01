@@ -13,6 +13,6 @@ struct Attraction: Identifiable {
     var address: String
     var image: String = "default"
     
-    var xCord: Double = 0.0
-    var yCord: Double = 0.0
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
 }
